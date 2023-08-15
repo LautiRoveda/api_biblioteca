@@ -1,17 +1,10 @@
-require('dotenv').config();
-
 const mongoose = require('mongoose');
+const uri = 'mongodb://localhost:3000/nombre-de-la-base-de-datos'; // Reemplaza con tu cadena de conexión válida
 
-mongoose.connect(process.env.MONGO_DB, {
-  useUnifiedTopology: true,
-  useNewUrlParser: true,
-});
-
-const LibroSchema = new mongoose.Schema({
-  titulo: String,
-  autor: String
-}, { collection: 'libros' });
-
-const Libro = mongoose.model('Libro', LibroSchema);
-
-module.exports = Libro;
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log('Conexión a la base de datos exitosa');
+  })
+  .catch(error => {
+    console.error('Error en la conexión a la base de datos:', error);
+  });
